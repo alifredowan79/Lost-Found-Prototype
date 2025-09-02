@@ -876,7 +876,7 @@ body {
 }
 
 .floating-label input {
-    padding: 1rem 1rem 0.5rem 2.5rem;
+    padding: 1rem 1rem 0.5rem 3.5rem;
     border: 2px solid var(--border-color);
     background: var(--bg-primary);
     transition: all 0.3s ease;
@@ -894,8 +894,8 @@ body {
 
 .floating-label label {
     position: absolute;
-    left: 2.5rem;
-    top: 1rem;
+    left: 3.5rem;
+    top: 0.75rem;
     color: var(--text-light);
     transition: all 0.3s ease;
     pointer-events: none;
@@ -906,8 +906,8 @@ body {
 
 .floating-label input:focus + label,
 .floating-label input:not(:placeholder-shown) + label {
-    top: 0.5rem;
-    left: 2.5rem;
+    top: -1rem;
+    left: 3.5rem;
     font-size: 0.75rem;
     color: var(--primary-color);
     font-weight: 600;
@@ -926,6 +926,7 @@ body {
 
 .floating-label input:focus ~ .input-icon {
     color: var(--primary-color);
+    left: -0.75rem;
 }
 
 .form-group input:focus,
@@ -1289,12 +1290,92 @@ body {
         gap: 1.5rem;
     }
     
-    .checkbox-group {
-        justify-content: flex-start;
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        font-weight: 500;
+        color: var(--text-secondary);
+        user-select: none; /* Prevent text selection on label */
+    }
+
+    .checkbox-label input[type="checkbox"] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    .checkmark {
+        height: 18px;
+        width: 18px;
+        background-color: var(--bg-primary);
+        border: 2px solid var(--border-color);
+        border-radius: 4px;
+        display: inline-block;
+        position: relative;
+        margin-right: 8px; /* Space between custom checkbox and text */
+        transition: all 0.2s ease-in-out;
+        flex-shrink: 0; /* Prevent checkmark from shrinking */
     }
     
+    /* When the checkbox is checked */
+    .checkbox-label input[type="checkbox"]:checked ~ .checkmark {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+    
+    /* Create the checkmark indicator */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+        left: 5px;
+        top: 1px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+    }
+    
+    /* Show the checkmark when checked */
+    .checkbox-label input[type="checkbox"]:checked ~ .checkmark:after {
+        display: block;
+    }
+    
+    /* Text next to the checkbox */
+    .checkbox-text {
+        font-size: 0.95rem; /* Adjust font size if needed */
+        color: var(--text-primary);
+    }
+    
+    
+    /* Styling for "Forgot Password?" link */
     .forgot-password {
-        text-align: center;
+        display: inline-flex; /* Use flex to align icon and text */
+        align-items: center;
+        gap: 0.5rem; /* Space between icon and text */
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 600;
+        white-space: nowrap; /* Prevent "Forgot Password?" from breaking into two lines */
+    }
+    
+    .forgot-password:hover {
+        text-decoration: underline;
+        color: var(--primary-dark);
+    }
+    
+    .forgot-password i {
+        font-size: 1rem; /* Adjust icon size if necessary */
+        color: var(--primary-color); /* Ensure icon color matches link */
+    }
+    
+    /* Ensure default form-group margin doesn't push the link too far */
+    .form-row > .form-group:last-child {
+        margin-bottom: 0;
     }
     
     .nav {
@@ -1700,8 +1781,8 @@ select:focus {
 }
 
 .auth-form .form-section {
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -1758,7 +1839,7 @@ select:focus {
 
 /* Ensure proper spacing between form sections */
 .auth-form .form-section {
-    padding: 1.5rem 0;
+    padding: 2rem 0;
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -1847,7 +1928,26 @@ select:focus {
 .forgot-password {
     font-size: 0.875rem;
     text-align: right;
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.forgot-password:hover {
+    background: var(--bg-secondary);
+    transform: translateY(-1px);
+    color: var(--primary-dark);
+}
+
+.forgot-password i {
+    font-size: 0.8rem;
+    color: var(--primary-color);
 }
 
 .checkbox-label {
@@ -1859,7 +1959,20 @@ select:focus {
     color: var(--text-secondary);
     white-space: nowrap;
     margin: 0;
-    padding: 0;
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.checkbox-label:hover {
+    background: var(--bg-secondary);
+    transform: translateY(-1px);
+}
+
+.checkbox-text {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-weight: 500;
 }
 
 .checkbox-label input[type="checkbox"] {
@@ -1914,7 +2027,7 @@ select:focus {
 
 /* Fix for login form overlap issues */
 .auth-form .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     position: relative;
 }
 
@@ -1924,7 +2037,7 @@ select:focus {
 
 .auth-form .form-group label {
     display: block;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
     font-weight: 600;
     color: var(--text-primary);
     font-size: 0.95rem;
